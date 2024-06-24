@@ -126,22 +126,22 @@ const routes = [
     subRoutes: [
       {
         path: "/",
-        name: "Agent Persona",
+        name: "Character Persona",
         icon: <CreateIcon />,
       },
       {
-        path: "/clientinfo",
-        name: "Client Information",
+        path: "/customerdetails",
+        name: "Customer Details",
         icon: <InfoIcon />,
       },
       {
         path: "/packagedetails",
-        name: "Package Details",
+        name: "Package Overview",
         icon: <Box />,
       },
       {
         path: "/targets",
-        name: "Targets/Biz Objective",
+        name: "Strategic Goals",
         icon: <CrisisAlertIcon />,
       },
     ],
@@ -293,7 +293,7 @@ const SideBar = ({ children }) => {
                   </div>
                 </div>
               )}
-              {route.subRoutes && isAgentDesignOpen && (
+              {route.subRoutes && isAgentDesignOpen && isOpen && (
                 <AnimatePresence>
                   <motion.div
                     variants={showAnimation}
@@ -356,7 +356,6 @@ const MainContainer = styled.div`
   .sidebar {
     background-color: #2e2e2e;
     color: #fff;
-    height: 100vh;
     padding-top: 20px;
   }
   .top_section {
@@ -367,9 +366,7 @@ const MainContainer = styled.div`
   .bars {
     cursor: pointer;
   }
-  .routes {
-    padding: 10px 0;
-  }
+
   .link,
   .menu_item {
     display: flex;

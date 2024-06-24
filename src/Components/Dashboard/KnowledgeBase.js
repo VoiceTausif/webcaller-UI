@@ -1,147 +1,3 @@
-// import React, { useState } from 'react';
-// import { Modal, Button, Dropdown, DropdownButton, Table, Container, Row, Col, Form } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-// import UploadFileIcon from '@mui/icons-material/UploadFile';
-// import LanguageIcon from '@mui/icons-material/Language';
-
-// function KnowledgeBase() {
-//   const [showFolderModal, setShowFolderModal] = useState(false);
-//   const [showFileModal, setShowFileModal] = useState(false);
-//   const [folderName, setFolderName] = useState('');
-//   const [folderDescription, setFolderDescription] = useState('');
-//   const [useAIMagic, setUseAIMagic] = useState(false);
-
-//   const handleFolderModalClose = () => setShowFolderModal(false);
-//   const handleFolderModalShow = () => setShowFolderModal(true);
-//   const handleFileModalClose = () => setShowFileModal(false);
-//   const handleFileModalShow = () => setShowFileModal(true);
-
-//   const handleSaveFolder = () => {
-//     // Handle folder saving logic here
-//     console.log('Folder Name:', folderName);
-//     console.log('Folder Description:', folderDescription);
-//     setShowFolderModal(false);
-//   };
-
-//   const handleFileUpload = (event) => {
-//     // Handle file upload logic here
-//     console.log('File:', event.target.files[0]);
-//     setShowFileModal(false);
-//   };
-
-//   const toggleAIMagic = () => {
-//     setUseAIMagic(!useAIMagic);
-//   };
-
-//   return (
-//     <Container className="mt-4 p-0">
-//       <Row className="mb-3">
-//         <Col className="d-flex justify-content-end">
-//           <DropdownButton  id="dropdown-basic-button" title="Add Document">
-//             <Dropdown.Item onClick={handleFolderModalShow}><CreateNewFolderIcon className='iconColor' /> Add Folder</Dropdown.Item>
-//             <Dropdown.Item onClick={handleFileModalShow}><UploadFileIcon className='iconColor' />Upload File</Dropdown.Item>
-//             <Dropdown.Item href="#"><LanguageIcon className='iconColor' />Connect Website</Dropdown.Item>
-//           </DropdownButton>
-//         </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           <div className="table-responsive">
-//             <Table bordered className="table table-striped">
-//               <thead>
-//                 <tr>
-//                   <th>Name</th>
-//                   <th>Status</th>
-//                   <th>Last Updated At</th>
-//                   <th>Last Updated At</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td colSpan="4" className="text-center">No results found</td>
-//                 </tr>
-//               </tbody>
-//             </Table>
-//           </div>
-//         </Col>
-//       </Row>
-
-//       {/* Add Folder Modal */}
-//       <Modal show={showFolderModal} onHide={handleFolderModalClose}>
-//         <Modal.Header closeButton>
-//           <Modal.Title>Add Folder</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           <Form>
-//             <Form.Group className="mb-3" controlId="formFolderName">
-//               <Form.Label>Folder Name</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 placeholder="Enter folder name"
-//                 value={folderName}
-//                 onChange={(e) => setFolderName(e.target.value)}
-//               />
-//             </Form.Group>
-//             <Form.Group className="mb-3" controlId="formFolderDescription">
-//               <Form.Label>Folder Description</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 placeholder="Enter folder description"
-//                 value={folderDescription}
-//                 onChange={(e) => setFolderDescription(e.target.value)}
-//               />
-//             </Form.Group>
-//           </Form>
-//         </Modal.Body>
-//         <Modal.Footer>
-
-//           <Button className='btnClose' variant="primary" onClick={handleSaveFolder}>
-//             Save
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-
-//       {/* Upload File Modal */}
-//       <Modal show={showFileModal} onHide={handleFileModalClose}>
-//         <Modal.Header closeButton>
-//           <Modal.Title>Upload File</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           <Form.Group controlId="formFileUpload" className="mb-3">
-//             <Form.Label>Choose File</Form.Label>
-//             <div className="file-upload-wrapper">
-//               <Form.Control type="file" onChange={handleFileUpload} className="file-upload-input" />
-//               <div className="file-upload-overlay">
-//                 <div className="file-upload-drag-text">
-//                   Drag and drop a file or click to browse.
-//                 </div>
-//                 <div className="file-upload-magic-toggle">
-//                   <Form.Check 
-//                     type="switch"
-//                     id="ai-magic-switch"
-//                     label="Use AI magic to auto-format your file?"
-//                     checked={useAIMagic}
-//                     onChange={toggleAIMagic}
-//                   />
-//                 </div>
-//               </div>
-//             </div>
-//           </Form.Group>
-//         </Modal.Body>
-//         <Modal.Footer>
-//           <Button className='btnClose' variant="secondary" onClick={handleFileModalClose}>
-//             Upload
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-//     </Container>
-//   );
-// }
-
-// export default KnowledgeBase;
-
-
 import React, { useState } from 'react';
 import { Modal, Button, Dropdown, DropdownButton, Table, Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -150,6 +6,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import LanguageIcon from '@mui/icons-material/Language';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 function KnowledgeBase() {
   const [showFolderModal, setShowFolderModal] = useState(false);
@@ -158,7 +15,8 @@ function KnowledgeBase() {
   const [folderName, setFolderName] = useState('');
   const [folderDescription, setFolderDescription] = useState('');
   const [useAIMagic, setUseAIMagic] = useState(false);
-  const [webpageURLs, setWebpageURLs] = useState(['']); // State for storing webpage URLs
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [webpageURLs, setWebpageURLs] = useState(['']);
 
   const handleFolderModalClose = () => setShowFolderModal(false);
   const handleFolderModalShow = () => setShowFolderModal(true);
@@ -178,13 +36,35 @@ function KnowledgeBase() {
   };
 
   const handleFileUpload = (event) => {
-    // Handle file upload logic here
-    console.log('File:', event.target.files[0]);
-    setShowFileModal(false);
+    setSelectedFiles(event.target.files);
   };
 
-  const toggleAIMagic = () => {
-    setUseAIMagic(!useAIMagic);
+  const uploadFiles = async () => {
+    const formData = new FormData();
+    if (selectedFiles.length > 0) {
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('files', selectedFiles[i]);
+      }
+    }
+   
+    for (let i = 0; i < webpageURLs.length; i++) {
+      formData.append('urls', webpageURLs[i]);
+    }
+
+    try {
+      const response = await axios.post('https://voicing.ngrok.app/upload/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'accept': 'application/json',
+        },
+      });
+      console.log(response.data);
+      setSelectedFiles([]);
+      setShowFileModal(false); // Close the modal after upload
+      setShowWebsiteModal(false); // Close the website modal after upload
+    } catch (error) {
+      console.error('Error uploading files:', error);
+    }
   };
 
   const handleAddWebpageURL = () => {
@@ -208,7 +88,7 @@ function KnowledgeBase() {
       <Row className="mb-3">
         <Col className="d-flex justify-content-end">
           <DropdownButton id="dropdown-basic-button" title="Add Document">
-            <Dropdown.Item onClick={handleFolderModalShow}><CreateNewFolderIcon className='iconColor' /> Add Folder</Dropdown.Item>
+            {/* <Dropdown.Item onClick={handleFolderModalShow}><CreateNewFolderIcon className='iconColor' /> Add Folder</Dropdown.Item> */}
             <Dropdown.Item onClick={handleFileModalShow}><UploadFileIcon className='iconColor' /> Upload File</Dropdown.Item>
             <Dropdown.Item onClick={handleWebsiteModalShow}><LanguageIcon className='iconColor' /> Connect Website</Dropdown.Item>
           </DropdownButton>
@@ -277,20 +157,20 @@ function KnowledgeBase() {
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFileUpload" className="mb-3">
-            <Form.Label>Choose File</Form.Label>
+            <Form.Label>Choose Files</Form.Label>
             <div className="file-upload-wrapper">
-              <Form.Control type="file" onChange={handleFileUpload} className="file-upload-input" />
+              <Form.Control type="file" multiple onChange={handleFileUpload} className="file-upload-input" />
               <div className="file-upload-overlay">
                 <div className="file-upload-drag-text">
-                  Drag and drop a file or click to browse.
+                  Drag and drop files or click to browse.
                 </div>
                 <div className="file-upload-magic-toggle">
                   <Form.Check
                     type="switch"
                     id="ai-magic-switch"
-                    label="Use AI magic to auto-format your file?"
+                    label="Use AI magic to auto-format your files?"
                     checked={useAIMagic}
-                    onChange={toggleAIMagic}
+                    onChange={() => setUseAIMagic(!useAIMagic)}
                   />
                 </div>
               </div>
@@ -299,6 +179,9 @@ function KnowledgeBase() {
         </Modal.Body>
         <Modal.Footer>
           <Button className='btnClose' variant="secondary" onClick={handleFileModalClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={uploadFiles}>
             Upload
           </Button>
         </Modal.Footer>
@@ -310,14 +193,14 @@ function KnowledgeBase() {
           <Modal.Title>Connect Webpage</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div >
+          <div>
             <div className='conectWebpage'>
               <Form.Text style={{color: "#fff"}}>
                 Only publicly available knowledge bases will be imported. If your knowledge base is not publicly available, please import as documents instead.
               </Form.Text>
             </div>
             {webpageURLs.map((url, index) => (
-              <InputGroup className="mb-3 " key={index}>
+              <InputGroup className="mb-3" key={index}>
                 <Form.Control
                   type="url"
                   placeholder="https://example.com"
@@ -325,7 +208,7 @@ function KnowledgeBase() {
                   onChange={(e) => handleWebpageURLChange(index, e.target.value)}
                 />
                 {webpageURLs.length > 1 && (
-                  <Button variant="outline-secondary"  onClick={() => handleRemoveWebpageURL(index)}><DeleteIcon className='deleteUrl' /></Button>
+                  <Button variant="outline-secondary" onClick={() => handleRemoveWebpageURL(index)}><DeleteIcon className='deleteUrl' /></Button>
                 )}
               </InputGroup>
             ))}
@@ -337,7 +220,7 @@ function KnowledgeBase() {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" style={{background: "linear-gradient(90deg, rgba(130,12,72,1) 37%, rgba(180,10,158,1) 100%)"}} onClick={handleWebsiteModalClose}>
+          <Button variant="primary" style={{background: "linear-gradient(90deg, rgba(130,12,72,1) 37%, rgba(180,10,158,1) 100%)"}} onClick={uploadFiles}>
             Import
           </Button>
         </Modal.Footer>

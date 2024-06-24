@@ -1,7 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-
 .App {
   text-align: center;
 }
@@ -68,8 +67,6 @@ main {
   background-color: #1F2937;
   color: white;
   min-height: 90vh;
-  /* height: 100vh; */
-  /* overflow-y: auto; */
 }
 
 .top_section {
@@ -104,12 +101,11 @@ main {
   color: white;
 }
 
-.routes {
-  /* margin-top: 15px; */
+/* .routes {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
+} */
 .link {
   display: flex;
   color: white;

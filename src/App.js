@@ -27,7 +27,7 @@ function App() {
         <SideBar>
           <Routes>
             <Route path="/" element={<AgentMain />} />
-            <Route path="/clientinfo" element={<ClientInformation />} />
+            <Route path="/customerdetails" element={<ClientInformation />} />
             <Route path="/packagedetails" element={<PackageDetails />} />
             <Route path="/dashboard" element={<DashboardMain />} />
             <Route path="/callhistory" element={<CallHistoryMain />} /> 
